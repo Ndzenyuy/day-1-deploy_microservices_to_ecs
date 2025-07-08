@@ -66,17 +66,28 @@ jobs:
           echo version=$VERSION >> $GITHUB_OUTPUT
 
       #Angular
-      - name: Build and push Angular image
-        id: build-image-angular
-        uses: docker/build-push-action@v5
+      - name: Build Docker image (without pushing)
+        run: |
+          docker build -t ${{ env.ECR_REPOSITORY_CLIENT }}:${{ steps.get-version.outputs.version }} ./client
+
+      - name: Scan image with Trivy
+        uses: aquasecurity/trivy-action@v0.16.1
         with:
-          context: ./client
-          file: ./client/Dockerfile
-          push: true
-          provenance: false
-          tags: |
+          image-ref: ${{ env.ECR_REPOSITORY_CLIENT }}:${{ steps.get-version.outputs.version }}
+          format: table
+          severity: CRITICAL,HIGH
+          exit-code: 1 # fail if vulnerabilities are found
+
+      - name: Tag and Push Docker image
+        run: |
+          docker tag ${{ env.ECR_REPOSITORY_CLIENT }}:${{ steps.get-version.outputs.version }} \
             ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY_CLIENT }}:${{ steps.get-version.outputs.version }}
+
+          docker tag ${{ env.ECR_REPOSITORY_CLIENT }}:${{ steps.get-version.outputs.version }} \
             ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY_CLIENT }}:latest
+
+          docker push ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY_CLIENT }}:${{ steps.get-version.outputs.version }}
+          docker push ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY_CLIENT }}:latest
 
   deploy:
     needs: build-angular
