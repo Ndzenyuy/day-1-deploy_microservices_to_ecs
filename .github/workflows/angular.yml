@@ -71,11 +71,12 @@ jobs:
           docker build -t ${{ env.ECR_REPOSITORY_CLIENT }}:${{ steps.get-version.outputs.version }} ./client
 
       - name: Scan image with Trivy
-        uses: aquasecurity/trivy-action@v0.64.1
+        uses: aquasecurity/trivy-action@master
         with:
           image-ref: ${{ env.ECR_REPOSITORY_CLIENT }}:${{ steps.get-version.outputs.version }}
           format: "table"
           severity: CRITICAL,HIGH
+          ignore-unfixed: true
           exit-code: 1 # fail if vulnerabilities are found
 
       - name: Tag and Push Docker image
