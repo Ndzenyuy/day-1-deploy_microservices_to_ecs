@@ -77,21 +77,7 @@ jobs:
           format: "table"
           severity: CRITICAL,HIGH
           ignore-unfixed: true
-          exit-code: 0 # don't fail if vulnerabilities are found
-
-      - name: Scan image with Trivy
-        uses: aquasecurity/trivy-action@master
-        with:
-          image-ref: ${{ env.ECR_REPOSITORY_CLIENT }}:${{ steps.get-version.outputs.version }}
-          format: "sarif"
-          output: trivy-scan-results.sarif
-          severity: CRITICAL,HIGH
-          exit-code: 0 # don't fail if vulnerabilities are found
-
-      - name: Upload Trivy SARIF results
-        uses: github/codeql-action/upload-sarif@v2
-        with:
-          sarif_file: trivy-scan-results.sarif
+          exit-code: 1 # don't fail if vulnerabilities are found
 
       - name: Tag and Push Docker image
         run: |
