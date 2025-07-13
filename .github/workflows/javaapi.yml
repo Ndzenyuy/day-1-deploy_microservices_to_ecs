@@ -28,9 +28,9 @@ env:
   ECR_REPOSITORY_NODEAPI: "nodeapi"
   ECR_REPOSITORY_NGINX: "nginx"
 
-  ECS_JAVA_TASK: "java-task"
-  ECS_CLUSTER: "ecs-task"
-  ECS_SERVICE: "java-task-service"
+  ECS_JAVA_TASK: "ecs-microservices-deployment-webapi-Task"
+  ECS_CLUSTER: "ecs-microservices-deployment-Cluster"
+  ECS_SERVICE: "ecs-microservices-deployment-Service-webapi"
 
 jobs:
   build-javaapi:

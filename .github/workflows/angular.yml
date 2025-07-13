@@ -29,9 +29,9 @@ env:
   ECR_REPOSITORY_NODEAPI: "nodeapi"
   ECR_REPOSITORY_NGINX: "nginx"
 
-  ECS_ANGULAR_TASK: "angular-task"
-  ECS_CLUSTER: "ecs-task"
-  ECS_SERVICE: "angular-task-service-dei17ls6"
+  ECS_ANGULAR_TASK: "ecs-microservices-deployment-client-Task"
+  ECS_CLUSTER: "ecs-microservices-deployment-Cluster"
+  ECS_SERVICE: "ecs-microservices-deployment-Service-client"
 
 jobs:
   build-angular:

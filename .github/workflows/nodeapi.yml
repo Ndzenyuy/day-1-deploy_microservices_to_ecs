@@ -29,9 +29,9 @@ env:
   ECR_REPOSITORY_NODEAPI: "nodeapi"
   ECR_REPOSITORY_NGINX: "nginx"
 
-  ECS_NODEAPI_TASK: "node-task"
-  ECS_CLUSTER: "ecs-task"
-  ECS_SERVICE: "node-task-service-ye9bdzrm"
+  ECS_NODEAPI_TASK: "ecs-microservices-deployment-api-Task"
+  ECS_CLUSTER: "ecs-microservices-deployment-Cluster"
+  ECS_SERVICE: "ecs-microservices-deployment-Service-api"
 
 jobs:
   build-nodeapi:
