@@ -77,7 +77,7 @@ jobs:
           format: "table"
           severity: CRITICAL,HIGH
           ignore-unfixed: true
-          exit-code: 1 # don't fail if vulnerabilities are found
+          exit-code: 1 # fail if vulnerabilities are found
 
       - name: Tag and Push Docker image
         run: |
